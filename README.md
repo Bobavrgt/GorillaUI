@@ -15,3 +15,6 @@
 
   ### Then why is it on your github?
   - Incase someone wants it.
+ 
+  ### How do I use it?
+  - Use a freecam mod, dont play with it just use it to test mods.
