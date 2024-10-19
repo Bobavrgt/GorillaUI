@@ -22,10 +22,12 @@ namespace gorillaui
 	{
 		bool inRoom;
 		bool GUIEnabled = false;
+		bool isThirdPerson = false;
 
-      
 
-        void Start()
+
+
+		void Start()
 		{
 			/* A lot of Gorilla Tag systems will not be set up when start is called /*
 			/* Put code in OnGameInitialized to avoid null references */
@@ -91,55 +93,55 @@ namespace gorillaui
 		{
 			if (GUIEnabled)
 			{
-				GUI.Box(new Rect(10, 10, 150, 450), "Bobamod");
+				GUI.Box(new Rect(10, 10, 150, 400), "GorillaUI");
 
 				room = GUI.TextField(new Rect(15, 50, 140, 30), room, 25);
 
 				if (GUI.Button(new Rect(15, 100, 140, 40), "Join Room"))
 				{
-					
+
 					if (!string.IsNullOrEmpty(room))
 					{
-                        PhotonNetworkController.Instance.AttemptToJoinSpecificRoom(room, JoinType.Solo);
-                    }
+						PhotonNetworkController.Instance.AttemptToJoinSpecificRoom(room, JoinType.Solo);
+					}
 					else
 					{
 						Debug.Log("Room name cannot be empty.");
 					}
-					
-				}
-                if (GUI.Button(new Rect(15, 150, 140, 40), "Disconnect"))
-				{
-                    NetworkSystem.Instance.ReturnToSinglePlayer();
-                }
 
-                if (GUI.Button(new Rect(15, 200, 140, 40), "Quit Game"))
+				}
+				if (GUI.Button(new Rect(15, 150, 140, 40), "Disconnect"))
+				{
+					NetworkSystem.Instance.ReturnToSinglePlayer();
+				}
+
+				if (GUI.Button(new Rect(15, 200, 140, 40), "Quit Game"))
 				{
 					Application.Quit();
 				}
 
-				if (GUI.Button(new Rect(15, 250, 140, 40), "Set Modded")) 
+				if (GUI.Button(new Rect(15, 250, 140, 40), "Set Modded"))
 				{
 					GorillaComputer.instance.currentGameMode.Value = "MODDED_CASUAL";
 				}
 
-                if (GUI.Button(new Rect(15, 300, 140, 40), "Set Casual"))
-                {
-                    GorillaComputer.instance.currentGameMode.Value = "CASUAL";
-                }
-
-				if (GUI.Button(new Rect(15, 350, 140, 40), "FPC"))
+				if (GUI.Button(new Rect(15, 300, 140, 40), "Set Casual"))
 				{
-					GorillaTagger.Instance.thirdPersonCamera.SetActive(false);
+					GorillaComputer.instance.currentGameMode.Value = "CASUAL";
 				}
 
-                if (GUI.Button(new Rect(15, 400, 140, 40), "3rd person"))
-                {
-                    GorillaTagger.Instance.thirdPersonCamera.SetActive(true);
-                }
-            }
-			
+				if (GUI.Button(new Rect(15, 350, 140, 40), isThirdPerson ? "FPC" : "3rd Person"))
+				{
+					{
+						isThirdPerson = !isThirdPerson;
+						GorillaTagger.Instance.thirdPersonCamera.SetActive(isThirdPerson);
+					}
 
+
+				}
+
+
+			}
 		}
 	}
 }
