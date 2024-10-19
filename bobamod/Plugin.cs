@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 using Utilla;
 using static UnityEngine.UIElements.UxmlAttributeDescription;
 
-namespace bobamod
+namespace gorillaui
 {
 
 	/// <summary>
