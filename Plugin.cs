@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 using Utilla;
 using static UnityEngine.UIElements.UxmlAttributeDescription;
 
-namespace bobamod
+namespace gorillaui
 {
 
 	/// <summary>
@@ -91,7 +91,7 @@ namespace bobamod
 		{
 			if (GUIEnabled)
 			{
-				GUI.Box(new Rect(10, 10, 150, 450), "Bobamod");
+				GUI.Box(new Rect(10, 10, 150, 450), "GorillaUI");
 
 				room = GUI.TextField(new Rect(15, 50, 140, 30), room, 25);
 
