@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using Utilla;
 using static UnityEngine.UIElements.UxmlAttributeDescription;
 
+
 namespace gorillaui
 {
 
@@ -18,16 +19,17 @@ namespace gorillaui
 	[ModdedGamemode]
 	[BepInDependency("org.legoandmars.gorillatag.utilla", "1.5.0")]
 	[BepInPlugin(PluginInfo.GUID, PluginInfo.Name, PluginInfo.Version)]
-	public class Plugin : BaseUnityPlugin
+	public class GorillaUI : BaseUnityPlugin
 	{
 		bool inRoom;
 		bool GUIEnabled = false;
-		bool isThirdPerson = false;
+		bool isThirdPerson = true;
+        bool GUI2Enabled = false;
 
 
 
 
-		void Start()
+        void Start()
 		{
 			/* A lot of Gorilla Tag systems will not be set up when start is called /*
 			/* Put code in OnGameInitialized to avoid null references */
@@ -67,7 +69,24 @@ namespace gorillaui
 				}
 
 			}
-		}
+            if (inRoom || !PhotonNetwork.InRoom)
+            {
+				if (Keyboard.current[Key.Backquote].wasPressedThisFrame)
+                {
+                    GUI2Enabled = !GUI2Enabled;
+                }
+
+            }
+            if (inRoom || !PhotonNetwork.InRoom)
+            {
+                if (Keyboard.current.qKey.wasPressedThisFrame)
+                {
+                    isThirdPerson = !isThirdPerson;
+                    GorillaTagger.Instance.thirdPersonCamera.SetActive(isThirdPerson);
+                }
+
+            }
+        }
 
 		/* This attribute tells Utilla to call this method when a modded room is joined */
 		[ModdedGamemodeJoin]
@@ -93,7 +112,7 @@ namespace gorillaui
 		{
 			if (GUIEnabled)
 			{
-				GUI.Box(new Rect(10, 10, 150, 400), "GorillaUI");
+				GUI.Box(new Rect(10, 10, 150, 300), "GorillaUI");
 
 				room = GUI.TextField(new Rect(15, 50, 140, 30), room, 25);
 
@@ -110,38 +129,73 @@ namespace gorillaui
 					}
 
 				}
+
 				if (GUI.Button(new Rect(15, 150, 140, 40), "Disconnect"))
 				{
 					NetworkSystem.Instance.ReturnToSinglePlayer();
+					Debug.Log("Disconnected");
 				}
 
 				if (GUI.Button(new Rect(15, 200, 140, 40), "Quit Game"))
 				{
 					Application.Quit();
-				}
+                }
 
-				if (GUI.Button(new Rect(15, 250, 140, 40), "Set Modded"))
-				{
-					GorillaComputer.instance.currentGameMode.Value = "MODDED_CASUAL";
-				}
+				
 
-				if (GUI.Button(new Rect(15, 300, 140, 40), "Set Casual"))
-				{
-					GorillaComputer.instance.currentGameMode.Value = "CASUAL";
-				}
-
-				if (GUI.Button(new Rect(15, 350, 140, 40), isThirdPerson ? "FPC" : "3rd Person"))
+				if (GUI.Button(new Rect(15, 250, 140, 40), isThirdPerson ? "FPC" : "3rd Person"))
 				{
 					{
 						isThirdPerson = !isThirdPerson;
 						GorillaTagger.Instance.thirdPersonCamera.SetActive(isThirdPerson);
 					}
-
-
 				}
 
 
+                /*    if (GUI.Button(new Rect(15, 300, 140, 40), "Tp To Stump"))
+                    {
+                        
+                    }
+
+                    if (GUI.Button(new Rect(15, 350, 140, 40), "Placeholder"))
+                    {
+                        
+                    }
+
+                    if (GUI.Button(new Rect(15, 400, 140, 40), "Placeholder"))
+                    {
+
+                    }*/
 			}
+
+			if (GUI2Enabled)
+			{
+                GUI.Box(new Rect(170, 10, 150, 250), "Gamemode selector");
+
+                if (GUI.Button(new Rect(175, 50, 140, 40), "Set Casual"))
+                {
+                    GorillaComputer.instance.currentGameMode.Value = "CASUAL";
+                    Debug.Log("Gamemode changed to CASUAL.");
+                }
+
+                if (GUI.Button(new Rect(175, 100, 140, 40), "Set Infection"))
+                {
+                    GorillaComputer.instance.currentGameMode.Value = "INFECTION";
+                    Debug.Log("Gamemode changed to INFECTION.");
+                }
+
+                if (GUI.Button(new Rect(175, 150, 140, 40), "Set Modded Casual"))
+                {
+                    GorillaComputer.instance.currentGameMode.Value = "MODDED_CASUAL";
+                    Debug.Log("Gamemode changed to MODDED_CASUAL.");
+                }
+
+                if (GUI.Button(new Rect(175, 200, 140, 40), "Set Modded"))
+                {
+                    GorillaComputer.instance.currentGameMode.Value = "MODDED_INFECTION";
+                    Debug.Log("Gamemode changed to MODDED_INFECTION	.");
+                }
+            }
 		}
 	}
 }
