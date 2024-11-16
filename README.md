@@ -1,6 +1,6 @@
 # GorillaUI
 
-![image](https://github.com/user-attachments/assets/edcd9186-c9c3-4f43-be31-f114110d569d)
+(Image coming soon)
 
 # GUIS:
 ## Gorilla UI (main gui)
@@ -9,7 +9,7 @@
 - Quit game: Closes your game.
 - Third person/FPC: Swaps between third person camera and first person camera. Also accessable by clicking "Q".
 - Mod Info: Takes you to this readme.
-- 
+
 ## Gamemode Selector
 - Opened by pressing the Backquote key (`)
 - 4 Gamemodes to choose from, choosing one sets you selected gamemode to that one.
