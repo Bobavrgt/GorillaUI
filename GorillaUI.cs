@@ -122,7 +122,7 @@ namespace GorillaUI
 
         private void OnLeave()
         {
-            GameObject.Find("Environment Objects/LocalObjects_Prefab/Forest").transform.GetChild(19).gameObject.SetActive(true);//leaf mod disable
+            GameObject.Find("Environment Objects/LocalObjects_Prefab/Forest").transform.GetChild(19).gameObject.SetActive(true);
             GameObject.Find("Environment Objects/LocalObjects_Prefab/Forest").transform.GetChild(20).gameObject.SetActive(true);
             GameObject.Find("Environment Objects/LocalObjects_Prefab/Forest").transform.GetChild(21).gameObject.SetActive(true);
 
@@ -224,21 +224,6 @@ namespace GorillaUI
             }
         }
 
-        
-        
-            /*NoClip = true;
-            GorillaLocomotion.Player.Instance.headCollider.transform.position = new Vector3(-68, 12, -83);
-
-            // After the delay, disable NoClip
-            NoClip = false;
-
-            // Restore environment
-            SetEnvironment(true);*/
-        
-
-
-
-
         private void GorillaGUI()
         {
             GUI.Box(new Rect(10, 10, 150, 350), "GorillaUI");
@@ -323,6 +308,7 @@ namespace GorillaUI
             if (GUI.Button(new Rect(175, 150, 140, 40), "Set Modded Casual"))
             {
                 GorillaComputer.instance.currentGameMode.Value = MODDEDCASUAL;
+                
             }
 
             if (GUI.Button(new Rect(175, 200, 140, 40), "Set Modded"))
